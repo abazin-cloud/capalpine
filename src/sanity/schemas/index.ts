@@ -14,9 +14,11 @@ import service from "./documents/service";
 import form from "./documents/form";
 import project from "./documents/project";
 import projectCategory from "./documents/project-category";
+import event from "./documents/event";
 import servicesPage from "./singletons/pages/services-page";
 import blogPage from "./singletons/pages/blog-page";
 import projectsPage from "./singletons/pages/projects-page";
+import eventsPage from "./singletons/pages/events-page";
 
 const coreSchema = [
   generalSettings,
@@ -31,11 +33,13 @@ const coreSchema = [
   testimonial,
   projectCategory,
   project,
+  event,
   form,
   blogPage,
   service,
   servicesPage,
   projectsPage,
+  eventsPage,
 ];
 
 import { pageBuilder } from "./page-builder/page-builder";

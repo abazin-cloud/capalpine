@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 
 export const sitemapQuery = defineQuery(`
-  *[_type in ["page", "post", "project", "service", "blogPage", "projectsPage", "servicesPage"] && defined(slug.current)] {
+  *[_type in ["page", "post", "project", "service", "event", "blogPage", "projectsPage", "servicesPage", "eventsPage"] && defined(slug.current)] {
     "href": select(
       _type == "page" => "/" + slug.current,
       _type == "post" => "/blog/" + slug.current,
@@ -10,6 +10,8 @@ export const sitemapQuery = defineQuery(`
       _type == "projectsPage" => "/projects",
       _type == "service" => "/services/" + slug.current,
       _type == "servicesPage" => "/services",
+      _type == "event" => "/events/" + slug.current,
+      _type == "eventsPage" => "/events",
       slug.current
     ),
     _updatedAt

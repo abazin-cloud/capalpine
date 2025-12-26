@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";

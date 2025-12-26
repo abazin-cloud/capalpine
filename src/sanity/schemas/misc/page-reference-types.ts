@@ -3,6 +3,7 @@ export const pageReferenceTypes = [
   { type: 'blogPage' },
   { type: 'servicesPage' },
   { type: 'projectsPage' },
+  { type: 'eventsPage' },
   { type: 'service' },
   { type: 'project' },
 ] as const;

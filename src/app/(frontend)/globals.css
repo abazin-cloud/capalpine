@@ -33,3 +33,50 @@ html {
 .search-highlight {
   background-color: rgb(187 247 208);
 }
+
+/* Force all navigation links in header to stay black (including visited) */
+/* Target all links and buttons in navigation, excluding dropdowns and buttons with backgrounds */
+header a[href]:not(.bg-blue-600):not(.text-gray-900):not(.text-white),
+header a[href]:not(.bg-blue-600):not(.text-gray-900):not(.text-white):link,
+header a[href]:not(.bg-blue-600):not(.text-gray-900):not(.text-white):visited,
+header a[href]:not(.bg-blue-600):not(.text-gray-900):not(.text-white):hover,
+header a[href]:not(.bg-blue-600):not(.text-gray-900):not(.text-white):active {
+  color: #000000 !important; /* black */
+}
+
+/* NavigationMenuTrigger buttons (group menus) - ensure they stay black */
+header button:not(.bg-blue-600):not(.text-white),
+header button:not(.bg-blue-600):not(.text-white):link,
+header button:not(.bg-blue-600):not(.text-white):visited,
+header button:not(.bg-blue-600):not(.text-white):hover,
+header button:not(.bg-blue-600):not(.text-white):active {
+  color: #000000 !important; /* black */
+}
+
+/* Buttons with background should have white text */
+header button.bg-blue-600,
+header button.bg-blue-600 *,
+header a.bg-blue-600,
+header a.bg-blue-600 * {
+  color: #ffffff !important; /* white */
+}
+
+/* Keep dropdown menu links gray */
+header [role="menuitem"] a,
+header [role="menuitem"] a:link,
+header [role="menuitem"] a:visited,
+header [role="menuitem"] a:hover,
+header [role="menuitem"] a:active {
+  color: #111827 !important; /* gray-900 */
+}
+
+/* Force color inheritance for all children inside navigation links */
+header a[href]:not(.bg-blue-600):not(.text-gray-900) *,
+header a[href]:not(.bg-blue-600):not(.text-gray-900):visited * {
+  color: inherit !important;
+}
+
+header button:not(.bg-blue-600) *,
+header button:not(.bg-blue-600):visited * {
+  color: inherit !important;
+}

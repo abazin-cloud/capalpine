@@ -42,7 +42,10 @@ export default function Navbar({ settings, navigationSettings }: NavbarProps) {
                     <>
                       {item.menuItemType === 'group' ? (
                         <NavigationMenuItem>
-                          <NavigationMenuTrigger className='group-hover/nav:opacity-40 hover:!opacity-100'>
+                          <NavigationMenuTrigger 
+                            style={{ color: '#000000' }}
+                            className='group-hover/nav:opacity-40 hover:!opacity-100 text-black visited:text-black'
+                          >
                             {item.title}
                           </NavigationMenuTrigger>
                           <NavigationMenuContent className='min-w-[180px] text-nowrap py-3 px-3 flex flex-col gap-2 bg-white'>
@@ -50,7 +53,7 @@ export default function Navbar({ settings, navigationSettings }: NavbarProps) {
                               <Link 
                                 key={page.slug} 
                                 href={resolveHref(page._type, page.slug ?? '') ?? '/'}
-                                className='group py-1 pl-3 pr-2 flex items-center justify-between gap-6 rounded-md border border-dashed hover:bg-gray-50'
+                                className='group py-1 pl-3 pr-2 flex items-center justify-between gap-6 rounded-md border border-dashed hover:bg-gray-50 text-gray-900 visited:text-gray-900'
                               >
                                 {page.title}
                                 <ChevronRight 
@@ -65,10 +68,15 @@ export default function Navbar({ settings, navigationSettings }: NavbarProps) {
                         <NavigationMenuItem>
                           <Link 
                             href={resolveHref(item?.pageReference?._type ?? '', item?.pageReference?.slug ?? '') ?? '/'}
+                            style={(() => {
+                              if (item.isButton) return {};
+                              return {
+                                color: '#000000'
+                              };
+                            })()}
                             className={cn('relative overflow-hidden inline-flex transition-opacity duration-200 group-hover/nav:opacity-40 hover:!opacity-100', {
-                              'hover:underline underline-offset-[38px]': !item.isButton,
+                              'hover:underline underline-offset-[38px] text-black visited:text-black': !item.isButton,
                               'py-2 px-4 rounded-full text-white bg-blue-600': item.isButton,
-                              'text-blue-700': pathname.includes(`/${item.pageReference?.slug ?? ''}`)
                             })}
                           >
                             <AnimatedText>

@@ -120,6 +120,14 @@ export function resolveHref(documentType?: string, slug?: string): string | unde
       return slug ? `/projects/${slug}` : undefined;
     case 'post':
       return slug ? `/blog/${slug}` : undefined;
+    case 'blogPage':
+      return '/blog';
+    case 'servicesPage':
+      return '/services';
+    case 'projectsPage':
+      return '/projects';
+    case 'eventsPage':
+      return '/events';
     default:
       return `/${slug}`;
   }

@@ -1,5 +1,6 @@
 import { Folder } from "lucide-react";
 import { StructureBuilder } from "sanity/structure";
+import { EventsPage } from './events-item';
 
 export const PagesItem = (
   S: StructureBuilder, 
@@ -28,7 +29,8 @@ export const IndexPages = (
         .items([
           BlogItem(S),
           ProjectsItem(S),
-          ServicesItem(S)
+          ServicesItem(S),
+          EventsPage(S)
         ])
     ) 
 )
