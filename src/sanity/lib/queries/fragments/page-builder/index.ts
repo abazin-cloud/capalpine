@@ -1,4 +1,5 @@
 import { 
+  introHeroBlockQuery,
   heroBlockQuery, 
   headerBlockQuery,
   featureBlockQuery,
@@ -17,6 +18,7 @@ import {
 
 export const pageBuilder = `
   pageBuilder[] {
+    ${introHeroBlockQuery},
     ${heroBlockQuery},
     ${headerBlockQuery},
     ${featureBlockQuery},

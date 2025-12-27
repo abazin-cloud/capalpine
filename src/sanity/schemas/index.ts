@@ -19,6 +19,7 @@ import servicesPage from "./singletons/pages/services-page";
 import blogPage from "./singletons/pages/blog-page";
 import projectsPage from "./singletons/pages/projects-page";
 import eventsPage from "./singletons/pages/events-page";
+import homePage from "./singletons/pages/home-page";
 
 const coreSchema = [
   generalSettings,
@@ -40,9 +41,11 @@ const coreSchema = [
   servicesPage,
   projectsPage,
   eventsPage,
+  homePage,
 ];
 
 import { pageBuilder } from "./page-builder/page-builder";
+import introHeroBlock from "./page-builder/blocks/intro-hero-block";
 import headerBlock from "./page-builder/blocks/header-block";
 import heroBlock from "./page-builder/blocks/hero-block";
 import logoBlock from "./page-builder/blocks/logo-block";
@@ -58,6 +61,7 @@ import mediaBlock from "./page-builder/blocks/media-block";
 
 const pageBuilderSchema = [
   pageBuilder,
+  introHeroBlock,
   heroBlock,
   headerBlock,
   featureCardsBlock,
@@ -80,6 +84,9 @@ import videoObject from './objects/video';
 import buttonObject from './objects/button';
 import singleImageObject from "./objects/single-image";
 import callToActionObject from "./objects/call-to-action";
+import partnerObject from "./objects/partner";
+import valueItemObject from "./objects/value-item";
+import benefitItemObject from "./objects/benefit-item";
 
 const objectSchema = [
   seoObject,
@@ -89,7 +96,10 @@ const objectSchema = [
   singleImageObject,
   spacerObject,
   callToActionObject,
-  videoObject
+  videoObject,
+  partnerObject,
+  valueItemObject,
+  benefitItemObject,
 ];
 
 export const schema: { types: SchemaTypeDefinition[] } = {

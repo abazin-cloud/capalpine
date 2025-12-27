@@ -10,6 +10,7 @@ import { DisableDraftMode } from "@/components/shared/disable-draft-mode";
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
 import { navigationSettingsQuery } from "@/sanity/lib/queries/singletons/navigation";
 import { generalSettingsQuery, marketingSettingsQuery } from "@/sanity/lib/queries/singletons/settings";
+import { allPagesQuery } from "@/sanity/lib/queries/documents/all-pages";
 
 export const metadata: Metadata = {
   title: {
@@ -27,10 +28,11 @@ export default async function RootLayout({
 
   const { isEnabled: isDraftMode } = await draftMode();
 
-  const [{ data: settings }, { data: marketingSettings }, { data: navigationSettings }] = await Promise.all([
+  const [{ data: settings }, { data: marketingSettings }, { data: navigationSettings }, { data: pages }] = await Promise.all([
     sanityFetch({ query: generalSettingsQuery }),
     sanityFetch({ query: marketingSettingsQuery }),
-    sanityFetch({ query: navigationSettingsQuery })
+    sanityFetch({ query: navigationSettingsQuery }),
+    sanityFetch({ query: allPagesQuery })
   ]);
 
   if (!settings) return (
@@ -45,6 +47,7 @@ export default async function RootLayout({
         <ClientLayout 
           settings={settings}
           navigationSettings={navigationSettings}
+          pages={pages ?? []}
         >
           {children}
         </ClientLayout>

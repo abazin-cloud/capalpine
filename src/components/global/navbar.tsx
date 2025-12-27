@@ -69,14 +69,20 @@ export default function Navbar({ settings, navigationSettings }: NavbarProps) {
                           <Link 
                             href={resolveHref(item?.pageReference?._type ?? '', item?.pageReference?.slug ?? '') ?? '/'}
                             style={(() => {
-                              if (item.isButton) return {};
+                              if (item.isButton) {
+                                // Si c'est le bouton "Adhésion", utiliser la couleur rouge
+                                if (item.title?.toLowerCase().includes('adhésion') || item.title?.toLowerCase().includes('adhesion')) {
+                                  return { backgroundColor: '#F80000', color: '#ffffff' };
+                                }
+                                return {};
+                              }
                               return {
                                 color: '#000000'
                               };
                             })()}
                             className={cn('relative overflow-hidden inline-flex transition-opacity duration-200 group-hover/nav:opacity-40 hover:!opacity-100', {
                               'hover:underline underline-offset-[38px] text-black visited:text-black': !item.isButton,
-                              'py-2 px-4 rounded-full text-white bg-blue-600': item.isButton,
+                              'py-2 px-4 rounded-full text-white border-0': item.isButton,
                             })}
                           >
                             <AnimatedText>
@@ -89,7 +95,7 @@ export default function Navbar({ settings, navigationSettings }: NavbarProps) {
                   ): (
                     <NavigationMenuItem>
                       <Button 
-                        variant="primary" 
+                        variant={item.title?.toLowerCase().includes('adhésion') || item.title?.toLowerCase().includes('adhesion') ? "tertiary" : "primary"}
                         disableIcon={true}
                         buttonType="internal"
                         pageReference={item.pageReference}
@@ -107,7 +113,7 @@ export default function Navbar({ settings, navigationSettings }: NavbarProps) {
               settings={settings} 
               navigationSettings={navigationSettings}
             >
-              <button aria-label='Open menu' className='p-2.5 border border-gray-200/60 rounded-full cursor-pointer hover:bg-gray-50 transition-colors duration-300 ease-in-out'>
+              <button aria-label='Open menu' className='md:hidden p-2.5 border border-gray-200/60 rounded-full cursor-pointer hover:bg-gray-50 transition-colors duration-300 ease-in-out'>
                 <Menu size={18} />
               </button>
             </SlideOutMenu>

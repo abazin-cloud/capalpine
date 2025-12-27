@@ -1,10 +1,8 @@
-import Image from "next/image";
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import SiteLogo from "../shared/site-logo";
 import { useRouter } from "next/navigation";
 import { cn, resolveHref } from "@/lib/utils";
-import ButtonRenderer from "../shared/button-renderer";
 import AnimatedUnderline from "../shared/animated-underline";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { GeneralSettingsQueryResult, NavigationSettingsQueryResult } from "../../../sanity.types";
@@ -20,10 +18,7 @@ export default function SlideOutMenu({ children, settings, navigationSettings }:
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
 
   const { 
-    slideOutMenuItems: menuItems,
-    slideOutMenuButtons,
-    slideOutMenuSettings,
-    showCompanyDetailsSlideOutMenu
+    slideOutMenuItems: menuItems
   } = navigationSettings?.slideOutMenu ?? {};
 
   return(
@@ -64,77 +59,55 @@ export default function SlideOutMenu({ children, settings, navigationSettings }:
                     </CollapsibleTrigger>
                     <CollapsibleContent className="flex flex-col gap-y-1 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 transition-all duration-200">
                       {item?.pageReferences?.map((item) => (
-                        <SheetClose key={item.title}>
-                          <button 
+                        <SheetClose key={item.title} asChild>
+                          <div 
                             onClick={() => {
                               router.push(resolveHref(item._type ?? '', item.slug ?? '') ?? '/');
                               setOpenItems(prev => ({ ...prev, [item.title ?? '']: false }));
                             }}
-                            className='relative block text-xl tracking-tight text-gray-500 hover:text-black group'
+                            className='relative block text-xl tracking-tight text-gray-500 hover:text-black group cursor-pointer'
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                router.push(resolveHref(item._type ?? '', item.slug ?? '') ?? '/');
+                                setOpenItems(prev => ({ ...prev, [item.title ?? '']: false }));
+                              }
+                            }}
                           >
                             {item.title}
                             <AnimatedUnderline className='h-[1.5px] bg-gray-500 group-hover:bg-black' />
-                          </button>
+                          </div>
                         </SheetClose>
                       ))}                        
                     </CollapsibleContent>
                   </Collapsible>
                 ): (
-                  <SheetClose>
-                    <button 
+                  <SheetClose asChild>
+                    <div 
                       onClick={() => (
                         router.push(resolveHref(item.pageReference?._type ?? '', item.pageReference?.slug ?? '') ?? '/')
                       )}
-                      className='relative block text-3xl tracking-tight group'
+                      className='relative block text-3xl tracking-tight group cursor-pointer'
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          router.push(resolveHref(item.pageReference?._type ?? '', item.pageReference?.slug ?? '') ?? '/');
+                        }
+                      }}
                     >
                       {item.title}
                       <AnimatedUnderline className='h-[2px]' />
-                    </button>
+                    </div>
                   </SheetClose>
                 )}
               </React.Fragment>
             )
           })}
         </ul>
-        {showCompanyDetailsSlideOutMenu && (
-          <>
-            <SheetTitle className='border-t border-dashed mt-8 px-0 pt-8 antialiased font-normal text-gray-400'>
-              Say Hello
-            </SheetTitle>
-            <div className="mt-2 space-y-4">
-              <a 
-                href={`mailto:${slideOutMenuSettings?.companyEmailAddress ?? ''}`} 
-                className="relative w-fit block text-2xl tracking-tight group"
-              >
-                {slideOutMenuSettings?.companyEmailAddress ?? ''}
-                <AnimatedUnderline className='h-[2px]' />
-              </a>
-            </div>
-            <div className="mt-8 py-4 flex items-center gap-3 border-y border-dashed">
-              {slideOutMenuSettings?.companySocialMediaLinks?.map((item) => (
-                <a 
-                  key={item._key} 
-                  href={item.profileUrl ?? ''} 
-                  target="_blank" rel="noopener noreferrer"
-                  className="p-3 border rounded-full hover:bg-black group transition-all duration-300"
-                >
-                  <Image
-                    src={item.icon?.asset?.url ?? ''}
-                    width={16}
-                    height={16}
-                    alt={`Follow us on ${item.title ?? ''}`}
-                    className="group-hover:invert"
-                  />
-                </a>
-              ))}
-            </div>
-          </>
-        )}
-        {slideOutMenuButtons && slideOutMenuButtons.length > 0 && (
-          <div className='pt-10 fixed bottom-1 right-0 w-full md:w-[380px] px-4 pb-4 bg-gradient-to-t from-white via-white to-transparent'>
-            <ButtonRenderer buttons={slideOutMenuButtons} classNames="flex-col md:flex-row" />  
-          </div>
-        )}
       </SheetContent>
     </Sheet>
   )

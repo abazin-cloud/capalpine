@@ -270,3 +270,19 @@ export const mediaBlockQuery = `
     anchorId
   }
 `
+
+export const introHeroBlockQuery = `
+  _type == "introHeroBlock" => {
+    ${baseQuery},
+    heading,
+    introText,
+    buttons[]{
+      ${buttonQuery}
+    },
+    heroImage { 
+      height,
+      ${mediaQuery}
+    },
+    anchorId
+  }
+`

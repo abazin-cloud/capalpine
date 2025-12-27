@@ -80,3 +80,10 @@ header button:not(.bg-blue-600) *,
 header button:not(.bg-blue-600):visited * {
   color: inherit !important;
 }
+
+/* Force le titre hero à rester sur une ligne sur desktop */
+@media (min-width: 768px) {
+  #home h1 {
+    white-space: nowrap !important;
+  }
+}

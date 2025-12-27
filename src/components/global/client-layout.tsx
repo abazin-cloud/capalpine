@@ -10,6 +10,12 @@ interface ClientLayoutProps {
   children: React.ReactNode;
   settings: GeneralSettingsQueryResult;
   navigationSettings: NavigationSettingsQueryResult;
+  pages?: Array<{
+    _id: string;
+    _type: string;
+    title: string | null;
+    slug: string | null;
+  }>;
 }
 
 const geistSans = localFont({
@@ -28,6 +34,7 @@ export default function ClientLayout({
   children,
   settings,
   navigationSettings,
+  pages,
 }: ClientLayoutProps) {
 
   const pathname = usePathname();
@@ -43,8 +50,8 @@ export default function ClientLayout({
         {children}
       </main>
       <Footer 
-        settings={settings} 
-        navigationSettings={navigationSettings}
+        settings={settings}
+        pages={pages ?? []}
       />
       <Toaster 
         position="bottom-right" 

@@ -4,6 +4,7 @@ export const pageBuilder = defineType({
   name: 'pageBuilder',
   type: 'array',
   of: [
+    defineArrayMember({ name: 'introHeroBlock', type: 'introHeroBlock' }),
     defineArrayMember({ name: 'heroBlock', type: 'heroBlock' }),
     defineArrayMember({ name: 'headerBlock', type: 'headerBlock' }),
     defineArrayMember({ name: 'featureCardsBlock', type: 'featureCardsBlock' }),
@@ -23,7 +24,7 @@ export const pageBuilder = defineType({
         {
           name: 'intro',
           title: 'Intro',
-          of: [ 'heroBlock', 'headerBlock' ]
+          of: [ 'introHeroBlock', 'heroBlock', 'headerBlock' ]
         },
         {
           name: 'content',

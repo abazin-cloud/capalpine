@@ -14,6 +14,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return await fetchRedirects();
   },
+  // Configuration pour éviter les problèmes de chunks avec Sanity UI
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

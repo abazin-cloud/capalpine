@@ -6,6 +6,7 @@ import { createDataAttribute } from "next-sanity";
 import { PageBySlugQueryResult } from "../../../sanity.types";
 import { dataset, projectId, studioUrl } from "@/sanity/lib/api";
 
+const IntroHeroBlock = dynamic(() => import("./blocks/intro-hero-block"));
 const HeroBlock = dynamic(() => import("./blocks/hero-block"));
 const HeaderBlock = dynamic(() => import("./blocks/header-block"));
 const FeatureCardsBlock = dynamic(() => import("./blocks/feature-cards-block"));
@@ -30,6 +31,7 @@ export type PageBuilderProps = {
 };
 
 const PB_BLOCKS = {
+  introHeroBlock: IntroHeroBlock,
   heroBlock: HeroBlock,
   headerBlock: HeaderBlock,
   featureCardsBlock: FeatureCardsBlock,
@@ -59,7 +61,11 @@ export function PageBuilder({ pageBuilder, id, type }: PageBuilderProps) {
       }).toString()}
     >
       {pageBuilder.map((block) => {
-        const Component = PB_BLOCKS[block._type] as ComponentType<PageBuilderType<BlockType>>;
+        const Component = PB_BLOCKS[block._type as keyof typeof PB_BLOCKS] as ComponentType<any>;
+        if (!Component) {
+          console.warn(`Unknown block type: ${block._type}`);
+          return null;
+        }
         return (
           <div
             key={`${block._type}-${block._key}`}

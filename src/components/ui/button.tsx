@@ -10,9 +10,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "text-white bg-blue-700 hover:bg-blue-600",
-        secondary: "text-white bg-black hover:bg-blue-700",
-        tertiary: "text-black hover:text-white border border-gray-300/80 hover:border-blue-500 bg-gray-200 hover:bg-blue-600",
+        primary: "text-white hover:opacity-90",
+        secondary: "text-white hover:opacity-90",
+        tertiary: "text-white hover:opacity-90",
         outline: "text-black border border-gray-300/80 hover:border-black hover:bg-black backdrop-blur hover:text-white",
         underline: "xl:px-0 mb-2 underline underline-offset-[10px] decoration-[1.5px] decoration-gray-800",
       },
@@ -62,6 +62,21 @@ const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(({
   anchorId,
   ...props 
 }, ref) => {
+  // Couleurs personnalisées selon le variant
+  const getButtonStyle = () => {
+    switch (variant) {
+      case 'primary':
+        return { backgroundColor: '#0072bd', color: '#ffffff' };
+      case 'secondary':
+        return { backgroundColor: '#050505', color: '#ffffff' };
+      case 'tertiary':
+        return { backgroundColor: '#f80000', color: '#ffffff' };
+      default:
+        return {};
+    }
+  };
+
+  const buttonStyle = getButtonStyle();
 
   switch (buttonType) {
     case 'internal':
@@ -70,6 +85,7 @@ const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(({
         <Link
           href={resolveHref(pageReference._type, pageReference.slug ?? '') ?? '/'}
           ref={ref}
+          style={buttonStyle}
           className={cn('group', buttonVariants({ variant, size, width, className }))}
           {...props}
         >
@@ -85,6 +101,7 @@ const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(({
             pageReference: pageReference ?? null
           })}
           ref={ref}
+          style={buttonStyle}
           className={cn('group', buttonVariants({ variant, size, width, className }))}
           {...props}
         >
@@ -96,6 +113,7 @@ const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(({
         <a 
           href={`${externalUrl}`}
           rel="noopener noreferrer" target="_blank"
+          style={buttonStyle}
           className={cn('group', buttonVariants({ variant, size, width, className }))}
         >
           {children} {!disableIcon && (<ButtonIcon />)}
@@ -106,6 +124,7 @@ const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(({
         <a 
           href={fileUrl ?? ''}
           download rel="noopener noreferrer" target="_blank"
+          style={buttonStyle}
           className={cn('group', buttonVariants({ variant, size, width, className }))}
         >
           {children} {!disableIcon && (<ButtonIcon />)}
@@ -116,6 +135,7 @@ const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(({
         <a 
           href={`mailto:${emailAddress}`}
           rel="noopener noreferrer" target="_blank"
+          style={buttonStyle}
           className={cn('group', buttonVariants({ variant, size, width, className }))}
         >
           {children} {!disableIcon && (<ButtonIcon />)}

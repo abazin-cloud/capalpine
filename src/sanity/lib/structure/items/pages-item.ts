@@ -12,9 +12,24 @@ export const PagesItem = (
       S.list()
         .title('Pages')
         .items([
+          HomePageItem(S),
           PageBuilder(S),
           IndexPages(S)
         ])
+    )
+)
+
+export const HomePageItem = (
+  S: StructureBuilder, 
+) => (
+  S.listItem()
+    .title('Page d\'accueil')
+    .child(
+      S.document()
+      .id('homePage')
+      .schemaType('homePage')
+      .documentId('homePage')
+      .title('Page d\'accueil')
     )
 )
 
